@@ -1,0 +1,13 @@
+.orange-text{
+    color: orangered;
+    text-shadow: 1px 1px 2px darkgray;
+    font-style: italic;
+}
+
+.centerContent{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}

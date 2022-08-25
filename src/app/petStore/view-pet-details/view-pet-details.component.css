@@ -1,0 +1,11 @@
+.tag{
+    margin: 5px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.details_div{
+    padding: 10px;
+    border-bottom: thin solid grey;
+    margin-bottom: 5px;
+}

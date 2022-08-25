@@ -1,0 +1,54 @@
+<!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="stretch stretch">
+    <div>
+      <label >Name</label>:  {{data.name}}
+    </div>
+    <div>
+        <label >Status</label>:  {{data.status}}
+    </div>
+</div> -->
+
+<h1 mat-dialog-title>Name: {{data.name}}</h1>
+<div mat-dialog-content>
+  <div class="details_div">
+    <b>Status</b> <br>
+    <h3 [ngClass]="{'text-green': data.status == 'available', 
+    'text-yellow': data.status == 'pending', 
+    'text-red': data.status == 'sold'}">{{data.status}}</h3>
+  </div>
+ 
+  <div  class="details_div">
+    <mat-icon>image</mat-icon> <b>Photos</b>
+    <div *ngIf="!data.photoUrls || data.photoUrls.length < 1; else photos">
+      <span class="text-red">No photos defined</span>
+    </div>
+    <ng-template #photos>
+      <div>
+        <ul>
+          <li *ngFor="let url of data.photoUrls">
+            <a href="{{url}}" target="_blank" rel="noopener noreferrer"> Click to view <mat-icon>open_in_new</mat-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </ng-template>
+
+  </div>
+
+  <div  class="details_div">
+    <mat-icon>tag</mat-icon> <b>Tags</b>
+    <div *ngIf="!data.tags || data.tags.length < 1; else tags">
+      <span class="text-red">No tags defined</span>
+    </div>
+    <ng-template #tags></ng-template>
+    <div>
+      <span class="tag" *ngFor="let tag of data.tags">
+        # {{tag.name}}
+      </span>
+    </div>
+
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close] cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+   
+    <span>ThePetProject!</span>
+    <span class="spacer"></span>
+
+   
+    <button mat-button [matMenuTriggerFor]="system_menu" aria-label="Menu">
+      Menu <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #system_menu="matMenu">
+        <a mat-menu-item routerLink="/addPet">Add a Pet</a>
+        <a mat-menu-item routerLink="/listpets">View Pets</a>
+      </mat-menu>
+      <span> {{user.username}}</span>
+    <button  (click)="logout()" mat-button >
+        <mat-icon>logout</mat-icon> Logout
+      </button> 
+      
+  </mat-toolbar>
