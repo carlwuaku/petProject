@@ -7,7 +7,7 @@ import { Pet } from './pet.model';
 })
 export class PetStoreService {
 
-  constructor(private dbService:DatabaseService) { }
+  constructor() { }
   statuses:string[] = ["available", "pending", "sold"];
   pets:Pet[] = [];
 }

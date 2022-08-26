@@ -35,15 +35,19 @@ export class AuthService {
    }
 
    checkLoggedIn():boolean{
-     return this.isLoggedIn
+    const user = localStorage.getItem(constants.USER_LOCALSTORAGE);
+   
+     return user !== null
    }
 
 
+  runLogin(authData:AuthData){
+    return this.dbService.getData(`user/login?username=${authData.username}&password=${authData.password}`)
+  }
   login(authData:AuthData){
     try {
       this.loading.next(true)
-      this.dbService.getData(`user/login?username=${authData.username}&password=${authData.password}`)
-    .subscribe(data =>{
+      this.runLogin(authData).subscribe(data =>{
       this.user = {
         
          username:authData.username
@@ -67,10 +71,15 @@ export class AuthService {
    
   }
 
+
+  runLogout(){
+    return this.dbService.getData(`user/logout`)
+  }
+
   logout(){
     try {
-      this.dbService.getData(`user/logout`)
-    .subscribe(data =>{
+      
+    this.runLogout().subscribe(data =>{
       localStorage.clear();
       this.snackbar.open('Logged out successfully!', '', {
         duration: 3000

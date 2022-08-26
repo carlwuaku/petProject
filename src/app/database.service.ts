@@ -30,7 +30,7 @@ getData(path:string):Observable<any>{
   const headers = new HttpHeaders({ 'api_key': 'special-key'
   });
 
-  return this.http.get(environment.baseUrl+path, { headers: headers }).pipe(
+  return this.http.get<any>(environment.baseUrl+path, { headers: headers }).pipe(
     retry(1), catchError(this.handleError)
   );
 }

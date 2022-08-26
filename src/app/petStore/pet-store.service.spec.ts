@@ -13,4 +13,8 @@ describe('PetStoreService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should expect 3 status', () =>{
+    expect(service.statuses.length).toEqual(3)
+  })
 });
