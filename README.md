@@ -34,10 +34,12 @@ Within the src/app folder lies the components for this app
         database
     - /list-pets
         > this component implements the logic, and display to filter the list of pets by status
+    - /store/
+        > Contains the actions and state for the ngxs redux state management of pets data
     - /view-pet-details
         > this component diplays the details of a selected pet from the list-pets components
     - pet-store.service.ts
-        > provides the available status options for filtering and adding of pets
+        > provides the available status options and http calls for filtering and adding of pets
     - pet.model.ts
         > the interface defining the structure of a Pet Object.
 - /shared
