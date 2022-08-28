@@ -19,6 +19,11 @@ export class AuthGuardService implements CanActivate, OnInit {
     return this.checkLogin(state.url);
   }
 
+  /**
+   * checks to see if user is logged in. if not, redirect to login route. else allow
+   * @param url string a user-defined string
+   * @returns boolean
+   */
   checkLogin(url: string): boolean {
     
     if(this.authService.checkLoggedIn()){

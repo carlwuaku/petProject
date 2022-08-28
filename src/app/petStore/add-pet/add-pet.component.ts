@@ -28,6 +28,13 @@ export class AddPetComponent implements OnInit {
     )
   }
 
+
+  /**
+   * performs form validation and submits the form data via http post if form is valid.
+   * it goes back to the previous page if the transaction is successful, displays an error message
+   * otherwise
+   * @returns void
+   */
   submitForm(){
     if(!this.form.valid){
       this.error = true;
@@ -43,11 +50,12 @@ export class AddPetComponent implements OnInit {
     try {
      
     this.dbService.postData('pet', petData).subscribe(data => {
-      this.form.reset();
+     
       this.snackbar.open('Pet saved successfully!', '', {
         duration: 3000
       });
       this.loading =false;
+      window.history.back();
     })
     } catch (error) {
       this.loading = false;

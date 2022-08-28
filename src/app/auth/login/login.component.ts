@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
     })
   }
   
+  /**
+   * makes use of the authservice login to call backend to login user
+   * @returns void
+   */
   login():void{
     if(!this.form.valid){
       this.error = true;

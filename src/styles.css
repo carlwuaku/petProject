@@ -14,8 +14,8 @@ background-color: whitesmoke; }
     color: royalblue;
 }
 .app-title{
-    font-family: 'Lobster', cursive;
-    text-shadow: 1px 1px 2px darkgray;
+    font-family: 'Lobster', cursive !important;
+    /* text-shadow: 1px 1px 2px darkgray; */
 }
 
 .blue-text{

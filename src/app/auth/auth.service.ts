@@ -44,6 +44,12 @@ export class AuthService {
   runLogin(authData:AuthData){
     return this.dbService.getData(`user/login?username=${authData.username}&password=${authData.password}`)
   }
+
+  /**
+   * run validations and call service login method. navigates to default route / if successful. 
+   * else displays an error message
+   * @param authData AuthData the username and password
+   */
   login(authData:AuthData){
     try {
       this.loading.next(true)

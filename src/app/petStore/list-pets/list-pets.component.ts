@@ -42,11 +42,12 @@ export class ListPetsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.dataSource = this.petService.pets;
     this.filterByStatus();
   }
 
-  //load the items having the chosen status
+  /**
+   * load the items having the chosen status
+   * */
   filterByStatus() {
     this.loading = true;
     try {
