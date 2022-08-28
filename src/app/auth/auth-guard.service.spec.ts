@@ -8,6 +8,7 @@ import routes from '../app-routing.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {  MatSnackBarModule } from '@angular/material/snack-bar';
 import constants from '../constants';
+import { setUpLocalStorage } from '../testHelpers/spec-helper';
 
 describe('AuthGuardService', () => {
   let service: AuthGuardService;
@@ -23,6 +24,7 @@ describe('AuthGuardService', () => {
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
     router.initialNavigation(); 
+    setUpLocalStorage();
   });
 
   it('should be created', () => {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { expectText } from '../testHelpers/spec-helper';
 
 import { PageNotFoundComponent } from './page-not-found.component';
 
@@ -23,12 +24,11 @@ describe('PageNotFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render message', ()=>{
+  it('should render message for page not found', ()=>{
     const fixture = TestBed.createComponent(PageNotFoundComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('[data-testid="pagenotfoundheader"]')?.textContent).toContain
-    ('Oops! Page not found!');
+    expectText(fixture, 'pagenotfoundheader','Oops! Page not found!')
+    
   
   })
 });

@@ -8,6 +8,7 @@ import {  MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from './auth.service';
 import constants from '../constants';
 import { environment } from 'src/environments/environment';
+import { setUpLocalStorage } from '../testHelpers/spec-helper';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -19,6 +20,7 @@ describe('AuthService', () => {
       providers:[ DatabaseService]
     });
     service = TestBed.inject(AuthService);
+    setUpLocalStorage();
   });
 
   it('should be created', () => {
@@ -34,7 +36,7 @@ describe('AuthService', () => {
   });
 
   it('should test checkLoggedIn() if not set', () => {
-    //if localstorage user set, getLoggedIn() should return true
+    //if localstorage user not set, getLoggedIn() should return false
     localStorage.removeItem(constants.USER_LOCALSTORAGE);
     const isLoggedIn = service.checkLoggedIn();
     expect(isLoggedIn).toBeFalse();
@@ -47,7 +49,6 @@ describe('AuthService', () => {
   
     service.runLogin({password: '123', username:'any'})
       .subscribe(data =>
-        // When observable resolves, result should match test data
         expect(data).toEqual(testData)
       );
   
@@ -70,7 +71,6 @@ describe('AuthService', () => {
   
     service.runLogout()
       .subscribe(data =>
-        // When observable resolves, result should match test data
         expect(data).toEqual(testData)
       );
   

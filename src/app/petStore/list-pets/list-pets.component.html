@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 
 <div class="container">
-  <h1>List of Pets <a routerLink="/addpet" mat-raised-button color="primary">
+  <h1>List of Pets <a data-testid="addNewPetBtn" routerLink="/addpet" mat-raised-button color="primary">
       <mat-icon>add</mat-icon> Add a new Pet
     </a> </h1>
   <div>
@@ -16,15 +16,15 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Select a status to filter the list</mat-label>
-    <mat-select (selectionChange)="filterByStatus()" [(value)]="selectedStatus">
+    <mat-select data-testid="statusSelector" (selectionChange)="filterByStatus()" [(value)]="selectedStatus">
       <mat-option value="{{status}}" *ngFor="let status of petService.statuses">{{status}} </mat-option>
 
     </mat-select>
   </mat-form-field> 
   <button mat-raised-button color="primary" (click)="filterByStatus()" > <mat-icon>refresh</mat-icon> Refresh Data</button>
   <app-loading *ngIf="loading"></app-loading>
-  <h2>Status: {{selectedStatus}}</h2>
-  <mat-table class="mat-elevation-z8 demo-table" matSort [dataSource]="dataSource">
+  <h2 data-testid="selectedStatus">Status: {{selectedStatus}}</h2>
+  <mat-table data-testid="datatable" class="mat-elevation-z8 demo-table" matSort [dataSource]="dataSource">
     <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef > # </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">{{i + 1}}</mat-cell>

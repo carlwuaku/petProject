@@ -31,7 +31,6 @@ describe('DatabaseService', () => {
     // Make an HTTP GET request
     service.getData('data')
       .subscribe(data =>
-        // When observable resolves, result should match test data
         expect(data).toEqual(testData)
       );
   
@@ -49,10 +48,9 @@ describe('DatabaseService', () => {
   it('can test HttpClient.post', () => {
     const testData: Data = {name: 'Test Data'};
   
-    // Make an HTTP GET request
+    // Make an HTTP POST request
     service.postData('data', testData)
       .subscribe(data =>
-        // When request resolves, result should match test data
         expect(data).toEqual(testData)
       );
   

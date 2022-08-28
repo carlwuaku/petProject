@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PetStoreService } from '../pet-store.service';
 import { Pet } from '../pet.model';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ViewPetDetailsComponent } from '../view-pet-details/view-pet-details.component';
 import { DatabaseService } from 'src/app/database.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatSelect } from '@angular/material/select';
 
 
 @Component({
@@ -16,25 +17,26 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ListPetsComponent implements OnInit, AfterViewInit {
   //set the default status to view the list by
-  selectedStatus:string = "available";
-
+  selectedStatus: string = "available";
+  @ViewChild(MatSelect)
+  public matSelect!: MatSelect;
   //the material table definitions
   @ViewChild(MatSort)
   sort!: MatSort;
   displayedColumns: string[] =
-   ['position','name', 'status'];
+    ['position', 'name', 'status'];
   dataSource = new MatTableDataSource<Pet>();
 
 
-  loading:boolean = false;
-  constructor(public petService:PetStoreService, private ar:ActivatedRoute,
-    public dialog: MatDialog, private dbService:DatabaseService) {
-      //check if a parameter was specified in the route
-      let params = ar.snapshot.params['status']
-      if(params != undefined){
-        this.selectedStatus = params;
-      }
-     }
+  loading: boolean = false;
+  constructor(public petService: PetStoreService, private ar: ActivatedRoute,
+    public dialog: MatDialog, private dbService: DatabaseService) {
+    //check if a parameter was specified in the route
+    let params = ar.snapshot.params['status']
+    if (params != undefined) {
+      this.selectedStatus = params;
+    }
+  }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
@@ -45,7 +47,7 @@ export class ListPetsComponent implements OnInit, AfterViewInit {
   }
 
   //load the items having the chosen status
-  filterByStatus(){
+  filterByStatus() {
     this.loading = true;
     try {
       this.dbService.getData(`pet/findByStatus?status=${this.selectedStatus}`).subscribe(data => {
@@ -56,17 +58,17 @@ export class ListPetsComponent implements OnInit, AfterViewInit {
     } catch (error) {
       this.loading = false;
     }
-    
+
   }
 
-  viewDetails(item:Pet){
+  viewDetails(item: Pet) {
     //show the modal with selected pet details
     const dialogRef = this.dialog.open(ViewPetDetailsComponent, {
       width: '450px',
       data: item,
     });
 
-    
+
   }
 
 }

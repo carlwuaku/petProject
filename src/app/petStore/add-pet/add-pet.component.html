@@ -7,16 +7,14 @@
        <mat-icon>arrow_back</mat-icon> Back to list of pets</a> Add a new Pet</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <form data-testid="addPetForm"  [formGroup]="form" (ngSubmit)="submitForm()">
         <div fxLayout="column" fxLayoutGap="20">
-        <div class="alert alert-danger" *ngIf="error">
-          {{error_message}}
-        </div>
+        <div data-testid="addPetError" class="alert alert-danger" *ngIf="error">{{error_message}}</div>
         <div fxLayoutAlign="center">
           <mat-form-field >
             <mat-label>Pet Name</mat-label>
-            <input formControlName="name" type="text" matInput>
-            <mat-error *ngIf="form.controls['name'].invalid">
+            <input data-testid="addPetName" formControlName="name" type="text" matInput>
+            <mat-error data-testid="addPetNameError" *ngIf="form.controls['name'].invalid">
               The name is required
             </mat-error>
           </mat-form-field>
@@ -24,12 +22,12 @@
         <div fxLayoutAlign="center">
           <mat-form-field>
             <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
+            <mat-select data-testid="addPetStatus" formControlName="status">
               <mat-option value="{{status}}" *ngFor="let status of petService.statuses">{{status}} </mat-option>
 
             </mat-select>
 
-            <mat-error *ngIf="form.controls['status'].invalid">
+            <mat-error data-testid="addPetStatusError" *ngIf="form.controls['status'].invalid">
               The status is required
             </mat-error>
           </mat-form-field>
@@ -38,7 +36,7 @@
           <mat-form-field>
             <mat-label>Image</mat-label>
 
-            <input formControlName="image" type="text" matInput>
+            <input data-testid="addPetImage" formControlName="image" type="text" matInput>
 
             <mat-hint>Enter the url for the image </mat-hint>
           </mat-form-field>
@@ -47,13 +45,12 @@
 
 
 
-        <mat-error *ngIf="error">{{error_message}} </mat-error>
         <div fxLayout="row" fxLayoutGap="10" fxLayoutAlign="center">
           <app-loading *ngIf="loading"></app-loading>
 
-          <button *ngIf="!loading" class="btn-block" [disabled]="!form.valid" type="submit" mat-raised-button
+          <button data-testid="addPetSubmitBtn" *ngIf="!loading" 
+           [disabled]="!form.valid" type="submit" mat-raised-button
             color="primary">Save</button>
-          <button mat-raised-button color="accent" type="reset">Reset</button>
 
 
         </div>
