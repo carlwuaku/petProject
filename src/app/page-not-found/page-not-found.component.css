@@ -1,6 +1,6 @@
 .orange-text{
     color: orangered;
-    text-shadow: 1px 1px 2px darkgray;
+    /* text-shadow: 1px 1px 2px darkgray; */
     font-style: italic;
 }
 

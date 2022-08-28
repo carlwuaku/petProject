@@ -24,7 +24,8 @@
   <button mat-raised-button color="primary" (click)="filterByStatus()" > <mat-icon>refresh</mat-icon> Refresh Data</button>
   <app-loading *ngIf="loading"></app-loading>
   <h2 data-testid="selectedStatus">Status: {{selectedStatus}}</h2>
-  <mat-table data-testid="datatable" class="mat-elevation-z8 demo-table" matSort [dataSource]="dataSource">
+  <mat-table data-testid="datatable" class="mat-elevation-z8 demo-table" matSort 
+  [dataSource]="petList$">
     <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef > # </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">{{i + 1}}</mat-cell>

@@ -14,17 +14,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
 import { MatOption } from '@angular/material/core/option';
+import { NgxsModule, Store } from '@ngxs/store';
+import { PetState } from '../store/pet.state';
+import { FilterPets } from '../store/pet-store.actions';
 
 describe('ListPetsComponent', () => {
   let component: ListPetsComponent;
   let fixture: ComponentFixture<ListPetsComponent>;
   let location: Location;
   let router: Router;
+  let store: Store;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListPetsComponent ],
       providers: [DatabaseService],
-      imports:[ReactiveFormsModule, BrowserAnimationsModule,
+      imports:[ReactiveFormsModule, BrowserAnimationsModule,NgxsModule.forRoot([PetState]),
         HttpClientTestingModule,RouterTestingModule.withRoutes(routes), MatSnackBarModule, MaterialModule]
    
     })
@@ -34,6 +38,7 @@ describe('ListPetsComponent', () => {
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
     router.initialNavigation();
+    store = TestBed.inject(Store);
   });
 
   beforeEach(() => {
@@ -56,21 +61,26 @@ describe('ListPetsComponent', () => {
 
   
   const spy=  spyOn(component, 'filterByStatus').and.callThrough();
-  //on init, it should be called once
   component.ngOnInit();
   fixture.detectChanges();
-  expect(spy).toHaveBeenCalledTimes(1);
   //change the status
   options[1]._selectViaInteraction();
   fixture.detectChanges();
-  //spy method has to be called again
-  expect(spy).toHaveBeenCalledTimes(2);
+  //spy method has to be called
+  expect(spy).toHaveBeenCalledTimes(1);
   //the second option should be selected
   expect(options[1].selected).toBeTrue();
 
    
     
   }))
+
+  it('it changes the status in the state', () => {
+    store.dispatch(new FilterPets('available'));
+    fixture.detectChanges()
+  const status = store.selectSnapshot(state => { console.log('state',state); return state.pets.status});
+    expect(status).toEqual('available');
+  });
 
 
 });

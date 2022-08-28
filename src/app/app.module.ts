@@ -16,6 +16,14 @@ import { ViewPetDetailsComponent } from './petStore/view-pet-details/view-pet-de
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { PetState } from './petStore/store/pet.state';
+import { PetStoreService } from './petStore/pet-store.service';
+import { DatabaseService } from './database.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,9 +42,12 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxsModule.forRoot([PetState]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
   ],
-  providers: [],
+  providers: [PetStoreService, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

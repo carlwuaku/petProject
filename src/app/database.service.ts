@@ -18,8 +18,9 @@ export class DatabaseService {
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `server Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    alert(errorMessage)
     console.log(errorMessage);
     return throwError(() => {
       return errorMessage;

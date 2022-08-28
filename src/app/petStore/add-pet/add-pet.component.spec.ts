@@ -11,12 +11,13 @@ import { MaterialModule } from 'src/app/material/material.module';
 import constants from 'src/app/constants';
 import { DatabaseService } from 'src/app/database.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
+import { NgxsModule, Store } from '@ngxs/store';
+import { PetState } from '../store/pet.state';
 
 describe('AddPetComponent', () => {
   let component: AddPetComponent;
   let fixture: ComponentFixture<AddPetComponent>;
-
+  let store: Store;
   const petName = "pet 1";
   const petStatus = "available";
   const petImage = "img1";
@@ -24,13 +25,13 @@ describe('AddPetComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ AddPetComponent ],
       providers: [DatabaseService],
-      imports:[ReactiveFormsModule,BrowserAnimationsModule,
+      imports:[ReactiveFormsModule,BrowserAnimationsModule,NgxsModule.forRoot([PetState]),
         HttpClientTestingModule,RouterTestingModule.withRoutes(routes), MatSnackBarModule, MaterialModule]
     })
     .compileComponents();
     setUpLocalStorage();
     localStorage.setItem(constants.USER_LOCALSTORAGE, JSON.stringify({username: 'carl'}));
-    
+    store = TestBed.inject(Store);
   });
 
   beforeEach(() => {
@@ -90,5 +91,22 @@ describe('AddPetComponent', () => {
     expectText(fixture, 'addPetError', errorMessage)
     
   });
+
+  it('should call the store dispatch if given a new status', () => {
+    spyOn(component, 'refreshList')
+    store.reset({
+      ...store.snapshot(),
+      status: 'pending'
+    });
+
+    //call the method with a status of available and expect that the dispatch FilterPets would 
+    //be called
+    component.refreshList('available');
+    //expect that the status would be equal to the new status
+    fixture.detectChanges();
+    
+  const status = store.selectSnapshot(state =>  state.pets.status);
+  expect(status).toEqual('available');
+  })
 
 });
